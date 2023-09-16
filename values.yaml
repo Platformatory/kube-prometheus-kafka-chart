@@ -3,11 +3,7 @@ kube-prometheus-stack:
     create: false
 
   grafana:
-    adminPassword: platformatory
-    dashboardsConfigMaps:
-      producer: producer-dashboard
-      consumer: consumer-dashboard
-    defaultDashboardsEnabled: false
+    enabled: false
 
   alertmanager:
     enabled: false
@@ -24,6 +20,32 @@ kube-prometheus-stack:
   kubeApiServer:
     enabled: false
 
-  prometheus:
-    prometheusSpec:
-      enableRemoteWriteReceiver: true
+  kubelet:
+    enabled: false
+
+  kubeControllerManager:
+    enabled: false
+
+  coreDns:
+    enabled: false
+
+  kubeEtcd:
+    enabled: false
+
+  kubeScheduler:
+    enabled: false
+
+  kubeProxy:
+    enabled: false
+
+  serviceMonitor:
+    enabled: false
+  
+grafana:
+  admin:
+    username: admin
+    password: secret
+
+kafkaNamespaces:
+  - cf
+  - rms

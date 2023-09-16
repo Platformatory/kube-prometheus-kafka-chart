@@ -1,6 +1,6 @@
 apiVersion: v2
 name: kube-prometheus-kafka
-description: A Helm chart for installing Prometheus and Grafana with Kafka producer and consumer dashboards.
+description: A Helm chart for installing Prometheus and Grafana with Kafka specific dashboards
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -25,6 +25,11 @@ appVersion: "1.16.0"
 
 dependencies:
 - name: kube-prometheus-stack
-  version: "45.*.*"
+  version: "51.*.*"
   repository: https://prometheus-community.github.io/helm-charts
   condition: kubePrometheus.enabled
+
+- name: grafana-operator
+  version: "v5.4.1"
+  repository: oci://ghcr.io/grafana-operator/helm-charts
+  

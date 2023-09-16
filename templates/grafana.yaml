@@ -1,0 +1,16 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: {{ .Release.Name }}-grafana
+  labels:
+{{- include "kube-prometheus-kafka.labels" . | nindent 4 }}
+    dashboard: {{ .Release.Name }}
+spec:
+  config:
+    log:
+      mode: "console"
+    auth:
+      disable_login_form: "false"
+    security:
+      admin_user: {{ .Values.grafana.admin.username }}
+      admin_password: {{ .Values.grafana.admin.password }}
