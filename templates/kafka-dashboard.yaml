@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+{{- include "kube-prometheus-kafka.labels" . | nindent 4 }}
+  name: {{ .Release.Name }}-kafka-dashboard
+data:
+{{ (.Files.Glob "conf/kafka-cluster.json").AsConfig | indent 2 }}
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: {{ .Release.Name }}-kafka-dashboard
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboard: {{ .Release.Name }}
+  configMapRef:
+    name: {{ .Release.Name }}-kafka-dashboard
+    key: kafka-cluster.json
