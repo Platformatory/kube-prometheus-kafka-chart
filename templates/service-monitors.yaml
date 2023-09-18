@@ -12,9 +12,11 @@ spec:
     - {{ $namespace }}
   selector:
     matchLabels:
-      app: kafka
+      env: {{ $namespace }}
   endpoints:
   - path: /metrics
     targetPort: 7778
+  targetLabels:
+  - env
 ---    
 {{- end }}

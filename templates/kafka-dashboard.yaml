@@ -12,6 +12,9 @@ kind: GrafanaDashboard
 metadata:
   name: {{ .Release.Name }}-kafka-dashboard
 spec:
+  datasources:
+    - inputName: "DS_PROMETHEUS"
+      datasourceName: "prometheus"
   instanceSelector:
     matchLabels:
       dashboard: {{ .Release.Name }}
