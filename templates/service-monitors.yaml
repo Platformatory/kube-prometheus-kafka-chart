@@ -1,22 +1,24 @@
-{{- range $namespace := .Values.kafkaNamespaces }}
+{{- range $cfkEnv := .Values.cfkEnvs }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ $.Release.Name }}-kafka-{{ $namespace }}
+  name: {{ $.Release.Name }}-kafka-{{ $cfkEnv.namespace }}-{{ $cfkEnv.identifier }}
   labels:
 {{- include "kube-prometheus-kafka.labels" $ | nindent 4 }}
     release: {{ $.Release.Name }}
 spec:
   namespaceSelector:
     matchNames:
-    - {{ $namespace }}
+    - {{ $cfkEnv.namespace }}
   selector:
     matchLabels:
-      env: {{ $namespace }}
+      {{ $.Values.envSelectorLabel }}: {{ $cfkEnv.identifier }}
+      type : {{ $cfkEnv.serviceType }}
   endpoints:
   - path: /metrics
     targetPort: 7778
   targetLabels:
-  - env
+  - {{ $.Values.envSelectorLabel }}
+  - type
 ---    
 {{- end }}

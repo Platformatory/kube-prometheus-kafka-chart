@@ -53,5 +53,17 @@ grafana:
     username: admin
     password: secret
 
-kafkaNamespaces:
-  - cf
+envSelectorLabel: "env"
+
+cfkEnvs:
+  - namespace: cf
+    identifier: platformatory
+    serviceType: kafka
+      
+ansibleEnvs:
+  - name: sentinel
+    labels:
+      job: kafka
+      env: sentinel
+    targets:
+      - 45.79.126.76:8080
