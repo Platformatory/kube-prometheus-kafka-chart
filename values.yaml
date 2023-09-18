@@ -1,21 +1,15 @@
 kube-prometheus-stack:
+  alertmanager:
+    enabled: false
+
   defaultRules:
     create: false
 
   grafana:
     enabled: false
 
-  alertmanager:
-    enabled: false
-
-  nodeExporter:
-    enabled: false
-
   kubeStateMetrics:
     enabled: false
-
-  prometheusOperator:
-    enabled: true
 
   kubeApiServer:
     enabled: false
@@ -38,6 +32,18 @@ kube-prometheus-stack:
   kubeProxy:
     enabled: false
 
+  nodeExporter:
+    enabled: false
+
+  prometheus:
+    serviceMonitor:
+      selfMonitor: false
+    
+  prometheusOperator:
+    enabled: true
+    serviceMonitor:
+      selfMonitor: false
+
   serviceMonitor:
     enabled: false
   
@@ -48,4 +54,3 @@ grafana:
 
 kafkaNamespaces:
   - cf
-  - rms

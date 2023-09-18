@@ -1,0 +1,17 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: {{ .Release.Name }}-prometheus
+  labels:
+{{- include "kube-prometheus-kafka.labels" . | nindent 4 }}
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboard: {{ .Release.Name }}
+  datasource:
+    name: prometheus
+    type: prometheus
+    access: proxy
+    basicAuth: true
+    url: http://{{ .Release.Name }}-kube-prometheus-prometheus:9090
+    isDefault: true

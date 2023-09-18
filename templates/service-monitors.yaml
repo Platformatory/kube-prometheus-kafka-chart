@@ -4,7 +4,8 @@ kind: ServiceMonitor
 metadata:
   name: {{ $.Release.Name }}-kafka-{{ $namespace }}
   labels:
-{{- include "kube-prometheus-kafka.labels" $ | nindent 4 }}    
+{{- include "kube-prometheus-kafka.labels" $ | nindent 4 }}
+    release: {{ $.Release.Name }}
 spec:
   namespaceSelector:
     matchNames:
@@ -13,6 +14,7 @@ spec:
     matchLabels:
       app: kafka
   endpoints:
-  - port: prometheus
+  - path: /metrics
+    targetPort: 7778
 ---    
 {{- end }}
